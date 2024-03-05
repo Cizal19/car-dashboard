@@ -11,6 +11,7 @@ import carIcon from "../../../public/icons/car.svg";
 import SpecButton from "./SpecButton";
 import ControlButtons from "./ControlButtons";
 import Navbar from "./Navbar";
+import { motion } from "framer-motion";
 
 const modes = ["TOUR", "ECO+", "SPORT+"];
 
@@ -21,6 +22,12 @@ const SpecsScreen = () => {
   // Method to update mode and specs
   const updateMode = (mode) => {
     setCurrentMode(mode);
+  };
+
+  const carAnimation = {
+    initial: { rotate: 30, scale: 1.25 },
+    animate: { rotate: 0, scale: 1.25 }, // Adjust rotation degree as needed
+    transition: { duration: 5000 }, // Adjust timing as needed
   };
 
   return (
@@ -58,13 +65,20 @@ const SpecsScreen = () => {
               icon2={tractionControlIcon}
             />
           </div>
-          <div className="ml-20">
-            <Image
+
+          <motion.div
+            className="ml-20"
+            initial="initial"
+            animate="animate"
+            variants={carAnimation}
+          >
+            <Image src={carImage} alt="A sleek car, angled view" />
+          </motion.div>
+          {/* <Image
               src={carImage}
               alt="A sleek car, angled view"
               style={{ scale: "1.25" }}
-            />
-          </div>
+            /> */}
         </div>
       </div>
     </div>

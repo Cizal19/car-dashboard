@@ -5,6 +5,7 @@ import ModeDisplay from "./ModeDisplay";
 import carImage from "../../../public/images/ferrari-top.png";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import { motion } from "framer-motion";
 
 const RangeScreen = () => {
   // Initial mode and its corresponding range value
@@ -22,6 +23,12 @@ const RangeScreen = () => {
   const updateMode = (mode) => {
     setCurrentMode(mode);
     setRange(modes[mode]);
+  };
+
+  const carAnimation = {
+    initial: { rotate: 0, scale: 1.25 },
+    animate: { rotate: 30, scale: 1.25 },
+    transition: { duration: 5000 },
   };
 
   return (
@@ -47,13 +54,15 @@ const RangeScreen = () => {
               />
             ))}
           </div>
-          <div className="ml-20">
-            <Image
-              src={carImage}
-              alt="A sleek car, angled view"
-              style={{ transform: "rotate(30deg)", scale: "1.25" }}
-            />
-          </div>
+          <motion.div
+            className="ml-20"
+            initial="initial"
+            animate="animate"
+            variants={carAnimation}
+          >
+            <Image src={carImage} alt="A sleek car, angled view" />
+          </motion.div>
+          {/* Remaining component layout */}
         </div>
       </div>
     </div>
