@@ -1,25 +1,59 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import carImage from "../../../public/images/ferrari-top.png";
 import awdIcon from "../../../public/icons/awd.svg";
 import twoWdIcon from "../../../public/icons/2wd.svg";
-import aeroIconOne from "../../../public/icons/aero1.svg";
-import aeroIconTwo from "../../../public/icons/aero2.svg";
-import tractionControlIcon from "../../../public/icons/traction-control.svg";
-import carIcon from "../../../public/icons/car.svg";
+import aeroSideIcon from "../../../public/icons/aero1.svg";
+import aeroTopIcon from "../../../public/icons/aero2.svg";
+import tractionControlOffIcon from "../../../public/icons/traction-control.svg";
+import tractionControlOnIcon from "../../../public/icons/car.svg";
 import SpecButton from "./SpecButton";
 import ControlButtons from "./ControlButtons";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
-
-const modes = ["TOUR", "ECO+", "SPORT+"];
+import axios from "axios";
 
 const SpecsScreen = () => {
   // State to track the current mode
-  const [currentMode, setCurrentMode] = useState("TOUR");
+  const [currentMode, setCurrentMode] = useState("TOUR"); // Default to 'ECO+' or any other initial mode
+  const [carSpecs, setCarSpecs] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Method to update mode and specs
+  const modes = ["TOUR", "ECO+", "SPORT+"];
+
+  useEffect(() => {
+    const fetchCarSpecifications = async () => {
+      setIsLoading(true);
+
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found");
+
+          setIsLoading(false);
+          return;
+        }
+
+        const response = await axios.get(
+          `https://car-dashboard-i83h.onrender.com/api/cars/${currentMode}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        console.log;
+        setCarSpecs(response.data[0]); // Assuming the API returns an array
+      } catch (error) {
+        console.error("Failed to fetch car specifications", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCarSpecifications();
+  }, [currentMode]);
+
   const updateMode = (mode) => {
     setCurrentMode(mode);
   };
@@ -27,7 +61,7 @@ const SpecsScreen = () => {
   const carAnimation = {
     initial: { rotate: 30, scale: 1.5 },
     animate: { rotate: 0, scale: 1.5 },
-    transition: { duration: 5000 }, // make the stats fade out also
+    transition: { duration: 5000 },
   };
 
   const containerVariants = {
@@ -58,30 +92,6 @@ const SpecsScreen = () => {
           className="flex flex-row items-center justify-around p-10"
           style={{ width: "900px", height: "550px" }}
         >
-          {/* <div className="">
-            <div className="flex flex-row">
-              {modes.map((mode) => (
-                <SpecButton
-                  key={mode}
-                  mode={mode}
-                  isActive={currentMode === mode}
-                  onClick={() => updateMode(mode)}
-                />
-              ))}
-            </div>
-
-            <ControlButtons title={"Power"} icon1={awdIcon} icon2={twoWdIcon} />
-            <ControlButtons
-              title={"Aero"}
-              icon1={aeroIconOne}
-              icon2={aeroIconTwo}
-            />
-            <ControlButtons
-              title={"Traction"}
-              icon1={carIcon}
-              icon2={tractionControlIcon}
-            />
-          </div> */}
           <motion.div
             className="flex flex-row items-center p-10"
             style={{ width: "800px", height: "600px" }}
@@ -106,21 +116,24 @@ const SpecsScreen = () => {
                   title={"Power"}
                   icon1={awdIcon}
                   icon2={twoWdIcon}
+                  initialValue={carSpecs.power}
                 />
                 <ControlButtons
                   title={"Aero"}
-                  icon1={aeroIconOne}
-                  icon2={aeroIconTwo}
+                  icon1={aeroSideIcon}
+                  icon2={aeroTopIcon}
+                  initialValue={carSpecs.aero}
                 />
                 <ControlButtons
                   title={"Traction"}
-                  icon1={carIcon}
-                  icon2={tractionControlIcon}
+                  icon1={tractionControlOnIcon}
+                  icon2={tractionControlOffIcon}
+                  initialValue={carSpecs.traction}
                 />
               </div>
             </div>
           </motion.div>
-
+          )
           <motion.div
             className="mr-20"
             initial="initial"

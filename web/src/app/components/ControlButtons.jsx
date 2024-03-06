@@ -1,8 +1,28 @@
+//
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const DualIconButton = ({ title, icon1, icon2 }) => {
-  const [selectedIcon, setSelectedIcon] = useState(icon1);
+const ControlButtons = ({ title, icon1, icon2, initialValue }) => {
+  // Use useEffect to set the initial selectedIcon based on initialValue prop
+  const [selectedIcon, setSelectedIcon] = useState(icon1); // Default to icon1 for initial render
+
+  useEffect(() => {
+    // Check the initialValue and update selectedIcon accordingly
+    // initialValue  relates to icon1 or icon2
+    if (initialValue === "4wd" && title === "Power") {
+      setSelectedIcon(icon1); //  icon1 corresponds to '4wd'
+    } else if (initialValue === "2wd" && title === "Power") {
+      setSelectedIcon(icon2); //  icon2 corresponds to '2wd'
+    } else if (initialValue === "side" && title === "Aero") {
+      setSelectedIcon(icon1); //  icon1 corresponds to 'side'
+    } else if (initialValue === "top" && title === "Aero") {
+      setSelectedIcon(icon2); //  icon2 corresponds to 'top'
+    } else if (initialValue === "on" && title === "Traction") {
+      setSelectedIcon(icon1); // icon1 corresponds to 'on'
+    } else if (initialValue === "off" && title === "Traction") {
+      setSelectedIcon(icon2); //  icon2 corresponds to 'off'
+    }
+  }, [initialValue, icon1, icon2, title]); // Rerun if these props change
 
   return (
     <div className="my-3 flex flex-row items-center justify-end text-white">
@@ -31,4 +51,4 @@ const DualIconButton = ({ title, icon1, icon2 }) => {
   );
 };
 
-export default DualIconButton;
+export default ControlButtons;
