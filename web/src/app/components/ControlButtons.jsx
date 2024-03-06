@@ -5,9 +5,9 @@ const DualIconButton = ({ title, icon1, icon2 }) => {
   const [selectedIcon, setSelectedIcon] = useState(icon1);
 
   return (
-    <div className="my-3 flex flex-row items-center justify-around text-white">
+    <div className="my-3 flex flex-row items-center justify-end text-white">
       <div className="text-lg">{title}</div>
-      <div className="flex">
+      <div className="flex flex-row ml-10">
         <button
           className={`m-1 p-2 rounded-lg shadow-xl flex  items-center justify-center ${
             selectedIcon === icon1 ? "bg-red-500" : "bg-black"

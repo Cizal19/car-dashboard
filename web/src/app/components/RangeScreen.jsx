@@ -26,9 +26,26 @@ const RangeScreen = () => {
   };
 
   const carAnimation = {
-    initial: { rotate: 0, scale: 1.25 },
-    animate: { rotate: 30, scale: 1.25 },
+    initial: { rotate: 0, scale: 1.5 },
+    animate: { rotate: 30, scale: 1.5 },
     transition: { duration: 5000 },
+  };
+
+  const containerVariants = {
+    hidden: {
+      x: "-5vw", // Start off-screen to the left
+      opacity: 0,
+    },
+    visible: {
+      x: 0, // Move to original position
+      opacity: 1,
+      transition: { ease: "easeInOut" },
+    },
+    exit: {
+      x: "-5vw", // Exit to the left
+      opacity: 0,
+      transition: { ease: "easeInOut", duration: 0.5 },
+    },
   };
 
   return (
@@ -40,9 +57,30 @@ const RangeScreen = () => {
         <Navbar />
         <div
           className="flex flex-row items-center p-10"
-          style={{ width: "800px", height: "600px" }}
+          style={{ width: "900px", height: "550px" }}
         >
-          <div>
+          <motion.div
+            className="flex flex-row items-center p-10"
+            style={{ width: "800px", height: "600px" }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <div>
+              <RangeDisplay range={range} refill={45} />
+              {Object.keys(modes).map((mode) => (
+                <ModeDisplay
+                  key={mode}
+                  mode={mode}
+                  value={modes[mode]}
+                  isActive={currentMode === mode}
+                  onClick={() => updateMode(mode)}
+                />
+              ))}
+            </div>
+          </motion.div>
+          {/* <div>
             <RangeDisplay range={range} refill={45} />
             {Object.keys(modes).map((mode) => (
               <ModeDisplay
@@ -53,9 +91,10 @@ const RangeScreen = () => {
                 onClick={() => updateMode(mode)}
               />
             ))}
-          </div>
+          </div> */}
+
           <motion.div
-            className="ml-20"
+            className="mr-20"
             initial="initial"
             animate="animate"
             variants={carAnimation}

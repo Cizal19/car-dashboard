@@ -34,7 +34,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed flex flex-row bg-red-600 rounded-xl p-4 shadow-2xl">
+    <div className="relative flex flex-row bg-red-600 rounded-xl p-4 shadow-2xl justify-around ">
       {navigationItems.map((item) => (
         <div key={item.label}>
           <Link legacyBehavior href={item.destination}>

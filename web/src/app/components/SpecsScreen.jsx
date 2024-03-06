@@ -25,9 +25,26 @@ const SpecsScreen = () => {
   };
 
   const carAnimation = {
-    initial: { rotate: 30, scale: 1.25 },
-    animate: { rotate: 0, scale: 1.25 }, // Adjust rotation degree as needed
-    transition: { duration: 5000 }, // Adjust timing as needed
+    initial: { rotate: 30, scale: 1.5 },
+    animate: { rotate: 0, scale: 1.5 },
+    transition: { duration: 5000 }, // make the stats fade out also
+  };
+
+  const containerVariants = {
+    hidden: {
+      x: "-5vw", // Start off-screen to the left
+      opacity: 0,
+    },
+    visible: {
+      x: 0, // Move to original position
+      opacity: 1,
+      transition: { ease: "easeInOut" },
+    },
+    exit: {
+      x: "-5vw", // Exit to the left
+      opacity: 0,
+      transition: { ease: "easeInOut", duration: 0.5 },
+    },
   };
 
   return (
@@ -38,10 +55,10 @@ const SpecsScreen = () => {
         </div>
         <Navbar />
         <div
-          className="flex flex-row items-center p-10"
-          style={{ width: "800px", height: "600px" }}
+          className="flex flex-row items-center justify-around p-10"
+          style={{ width: "900px", height: "550px" }}
         >
-          <div className="">
+          {/* <div className="">
             <div className="flex flex-row">
               {modes.map((mode) => (
                 <SpecButton
@@ -64,10 +81,48 @@ const SpecsScreen = () => {
               icon1={carIcon}
               icon2={tractionControlIcon}
             />
-          </div>
+          </div> */}
+          <motion.div
+            className="flex flex-row items-center p-10"
+            style={{ width: "800px", height: "600px" }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <div className="">
+              <div className="flex flex-row mb-10">
+                {modes.map((mode) => (
+                  <SpecButton
+                    key={mode}
+                    mode={mode}
+                    isActive={currentMode === mode}
+                    onClick={() => updateMode(mode)}
+                  />
+                ))}
+              </div>
+              <div>
+                <ControlButtons
+                  title={"Power"}
+                  icon1={awdIcon}
+                  icon2={twoWdIcon}
+                />
+                <ControlButtons
+                  title={"Aero"}
+                  icon1={aeroIconOne}
+                  icon2={aeroIconTwo}
+                />
+                <ControlButtons
+                  title={"Traction"}
+                  icon1={carIcon}
+                  icon2={tractionControlIcon}
+                />
+              </div>
+            </div>
+          </motion.div>
 
           <motion.div
-            className="ml-20"
+            className="mr-20"
             initial="initial"
             animate="animate"
             variants={carAnimation}
