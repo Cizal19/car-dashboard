@@ -22,7 +22,7 @@ const ControlButtons = ({ title, icon1, icon2, initialValue }) => {
     } else if (initialValue === "off" && title === "Traction") {
       setSelectedIcon(icon2); //  icon2 corresponds to 'off'
     }
-  }, [initialValue, icon1, icon2, title]); // Rerun if these props change
+  }, [initialValue]); // Rerun if these props change
 
   return (
     <div className="my-3 flex flex-row items-center justify-end text-white">

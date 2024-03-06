@@ -61,7 +61,7 @@ const SpecsScreen = () => {
   const carAnimation = {
     initial: { rotate: 30, scale: 1.5 },
     animate: { rotate: 0, scale: 1.5 },
-    transition: { duration: 5000 },
+    transition: { duration: 5000 }, // make the stats fade out also
   };
 
   const containerVariants = {
@@ -133,7 +133,7 @@ const SpecsScreen = () => {
               </div>
             </div>
           </motion.div>
-          )
+
           <motion.div
             className="mr-20"
             initial="initial"
