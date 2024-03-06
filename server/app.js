@@ -9,10 +9,14 @@ const swaggerUi = require("swagger-ui-express");
 const carSpecificationsRoutes = require("./routes/carSpecifications");
 
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(express.json());
+
+// CORS configuration for development
+app.use(cors());
 
 // Connect to MongoDB
 mongoose
