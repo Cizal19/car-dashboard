@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 // Routes
 const carSpecificationsRoutes = require("./routes/carSpecifications");
@@ -29,3 +31,30 @@ app.use("/api/auth", authRoutes);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Car Specifications API",
+      version: "1.0.0",
+      description: "A simple API to manage car specifications",
+      contact: {
+        name: "API Support",
+        url: "http://www.example.com/support",
+        email: "support@example.com",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"], // Path to the API docs
+};
+
+// Initialize swagger-jsdoc -> returns validated swagger spec in json format
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
