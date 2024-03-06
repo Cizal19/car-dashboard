@@ -14,7 +14,7 @@ const Navbar = () => {
     {
       label: "Fuel",
       icon: electricPumpIcon,
-      destination: "/rangescreen",
+      destination: "/",
     },
     {
       label: "Flag",
@@ -24,17 +24,20 @@ const Navbar = () => {
     {
       label: "Map",
       icon: circleLocationIcon,
-      destination: "/",
+      destination: "",
     },
     {
       label: "Gauges",
       icon: gaugeIcon,
-      destination: "/",
+      destination: "",
     },
   ];
 
   return (
-    <div className="relative flex flex-row bg-red-600 rounded-xl p-4 shadow-2xl justify-around ">
+    <div
+      className="relative flex flex-row bg-red-600 rounded-xl p-4 shadow-2xl justify-around"
+      style={{ width: "40%" }}
+    >
       {navigationItems.map((item) => (
         <div key={item.label}>
           <Link legacyBehavior href={item.destination}>
