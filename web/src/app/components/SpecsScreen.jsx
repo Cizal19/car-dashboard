@@ -59,8 +59,8 @@ const SpecsScreen = () => {
   };
 
   const carAnimation = {
-    initial: { rotate: 30, scale: 1.5 },
-    animate: { rotate: 0, scale: 1.5 },
+    initial: { rotate: 30, scale: 1.8 },
+    animate: { rotate: 0, scale: 1.8 },
     transition: { duration: 5000 }, // make the stats fade out also
   };
 
@@ -114,8 +114,8 @@ const SpecsScreen = () => {
               <div>
                 <ControlButtons
                   title={"Power"}
-                  icon1={awdIcon}
-                  icon2={twoWdIcon}
+                  icon1={twoWdIcon}
+                  icon2={awdIcon}
                   initialValue={carSpecs.power}
                 />
                 <ControlButtons
@@ -142,11 +142,6 @@ const SpecsScreen = () => {
           >
             <Image src={carImage} alt="A sleek car, angled view" />
           </motion.div>
-          {/* <Image
-              src={carImage}
-              alt="A sleek car, angled view"
-              style={{ scale: "1.25" }}
-            /> */}
         </div>
       </div>
     </div>

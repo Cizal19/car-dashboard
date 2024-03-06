@@ -9,9 +9,9 @@ const ControlButtons = ({ title, icon1, icon2, initialValue }) => {
   useEffect(() => {
     // Check the initialValue and update selectedIcon accordingly
     // initialValue  relates to icon1 or icon2
-    if (initialValue === "4wd" && title === "Power") {
+    if (initialValue === "2wd" && title === "Power") {
       setSelectedIcon(icon1); //  icon1 corresponds to '4wd'
-    } else if (initialValue === "2wd" && title === "Power") {
+    } else if (initialValue === "4wd" && title === "Power") {
       setSelectedIcon(icon2); //  icon2 corresponds to '2wd'
     } else if (initialValue === "side" && title === "Aero") {
       setSelectedIcon(icon1); //  icon1 corresponds to 'side'

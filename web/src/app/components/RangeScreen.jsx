@@ -70,8 +70,8 @@ const RangeScreen = () => {
 
   // Component animation variants
   const carAnimation = {
-    initial: { rotate: 0, scale: 1.5 },
-    animate: { rotate: 30, scale: 1.5 },
+    initial: { rotate: 0, scale: 1.8 },
+    animate: { rotate: 30, scale: 1.8 },
     transition: { duration: 5000 },
   };
 
