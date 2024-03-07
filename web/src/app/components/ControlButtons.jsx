@@ -33,7 +33,11 @@ const ControlButtons = ({ title, icon1, icon2, initialValue }) => {
             selectedIcon === icon1 ? "bg-red-500" : "bg-black"
           }`}
           onClick={() => setSelectedIcon(icon1)}
-          style={{ width: "100px", height: "50px" }}
+          style={{
+            width: "100px",
+            height: "50px",
+            transition: "background-color 0.5s easeInOut",
+          }}
         >
           <Image src={icon1} alt={`${title} option 1`} width={35} />
         </button>
@@ -42,7 +46,11 @@ const ControlButtons = ({ title, icon1, icon2, initialValue }) => {
             selectedIcon === icon2 ? "bg-red-500" : "bg-black"
           }`}
           onClick={() => setSelectedIcon(icon2)}
-          style={{ width: "100px", height: "50px" }}
+          style={{
+            width: "100px",
+            height: "50px",
+            transition: "background-color 0.3s easeInOut",
+          }}
         >
           <Image src={icon2} alt={`${title} option 2`} width={35} />
         </button>

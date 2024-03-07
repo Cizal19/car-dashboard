@@ -8,10 +8,15 @@ import aeroSideIcon from "../../../public/icons/aero1.svg";
 import aeroTopIcon from "../../../public/icons/aero2.svg";
 import tractionControlOffIcon from "../../../public/icons/traction-control.svg";
 import tractionControlOnIcon from "../../../public/icons/car.svg";
+
+import doubleChevronGold from "../../../public/icons/double-chevron-up.svg";
+import doubleChevronBlue from "../../../public/icons/double-chevron-up-blue.svg";
+import doubleChevronGreen from "../../../public/icons/double-chevron-up-green.svg";
+
 import SpecButton from "./SpecButton";
 import ControlButtons from "./ControlButtons";
 import Navbar from "./Navbar";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import axios from "axios";
 
 const SpecsScreen = () => {
@@ -21,6 +26,8 @@ const SpecsScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const modes = ["TOUR", "ECO+", "SPORT+"];
+
+  const carControls = useAnimation();
 
   useEffect(() => {
     const fetchCarSpecifications = async () => {
@@ -52,6 +59,8 @@ const SpecsScreen = () => {
     };
 
     fetchCarSpecifications();
+
+    chevronAnimationControls.start("animate");
   }, [currentMode]);
 
   const updateMode = (mode) => {
@@ -61,7 +70,13 @@ const SpecsScreen = () => {
   const carAnimation = {
     initial: { rotate: 30, scale: 1.8 },
     animate: { rotate: 0, scale: 1.8 },
-    transition: { duration: 5000 }, // make the stats fade out also
+    transition: {
+      duration: 2, // Adjust duration as needed
+      onComplete: () => {
+        console.log("Car animation complete");
+        chevronAnimationControls.start("animate");
+      },
+    },
   };
 
   const containerVariants = {
@@ -81,13 +96,23 @@ const SpecsScreen = () => {
     },
   };
 
+  const chevronAnimationControls = useAnimation();
+
+  const chevronAnimation = {
+    initial: { y: 200, x: -35, opacity: 0 }, // Start below the car, adjust y value as needed
+    animate: {
+      y: -80,
+      x: -35, // Final position
+      opacity: 1,
+      transition: { duration: 1 }, // Adjust duration as needed
+    },
+  };
+
   return (
     <div className="flex justify-center items-center">
       <div className="shadow-md p-10 rounded-xl text-white bg-[url('/images/red-black-bg2.png')] bg-cover bg-no-repeat bg-center">
-        <div className="flex flex-row mb-3">
-          <h1 className="text-3xl ">NIOEP9</h1>
-        </div>
         <Navbar />
+
         <div
           className="flex flex-row items-center justify-around p-10"
           style={{ width: "900px", height: "550px" }}
@@ -134,14 +159,33 @@ const SpecsScreen = () => {
             </div>
           </motion.div>
 
-          <motion.div
-            className="mr-20"
-            initial="initial"
-            animate="animate"
-            variants={carAnimation}
-          >
-            <Image src={carImage} alt="A sleek car, angled view" />
-          </motion.div>
+          <div className="relative flex flex-col items-center">
+            <motion.div
+              initial="initial"
+              animate={chevronAnimationControls}
+              variants={chevronAnimation}
+            >
+              <Image
+                src={
+                  currentMode === "SPORT+"
+                    ? doubleChevronGold
+                    : currentMode === "ECO+"
+                    ? doubleChevronGreen
+                    : doubleChevronBlue
+                }
+                alt="upchevron"
+                height={180}
+              />
+            </motion.div>
+            <motion.div
+              className="mr-16 z-0"
+              initial="initial"
+              animate="animate"
+              variants={carAnimation}
+            >
+              <Image src={carImage} alt="A sleek car, angled view" />
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

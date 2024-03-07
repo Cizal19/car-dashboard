@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <div
       className="relative flex flex-row bg-red-600 rounded-xl p-4 shadow-2xl justify-around"
-      style={{ width: "40%" }}
+      style={{ width: "40%", height: "50%" }}
     >
       {navigationItems.map((item) => (
         <div key={item.label}>

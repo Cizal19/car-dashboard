@@ -72,7 +72,7 @@ const RangeScreen = () => {
   const carAnimation = {
     initial: { rotate: 0, scale: 1.8 },
     animate: { rotate: 30, scale: 1.8 },
-    transition: { duration: 5000 },
+    transition: { ease: "easeInOut", duration: 0.2 },
   };
 
   const containerVariants = {
@@ -88,9 +88,6 @@ const RangeScreen = () => {
   return (
     <div className="flex justify-center items-center">
       <div className="shadow-md p-10 rounded-xl text-white bg-[url('/images/red-black-bg2.png')] bg-cover bg-no-repeat bg-center">
-        <div className="flex flex-row mb-3">
-          <h1 className="text-3xl ">NIOEP9</h1>
-        </div>
         <Navbar />
         <div
           className="flex flex-row items-center p-10"
