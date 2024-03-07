@@ -21,10 +21,9 @@ import axios from "axios";
 
 const SpecsScreen = () => {
   // State to track the current mode
-  const [currentMode, setCurrentMode] = useState("TOUR"); // Default to 'ECO+' or any other initial mode
+  const [currentMode, setCurrentMode] = useState("TOUR");
   const [carSpecs, setCarSpecs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  // const [showAnimation, setShowAnimation] = useState(false);
 
   const modes = ["TOUR", "ECO+", "SPORT+"];
 
@@ -51,7 +50,7 @@ const SpecsScreen = () => {
           }
         );
 
-        setCarSpecs(response.data[0]); // Assuming the API returns an array
+        setCarSpecs(response.data[0]);
       } catch (error) {
         console.error("Failed to fetch car specifications", error);
       } finally {
@@ -70,7 +69,7 @@ const SpecsScreen = () => {
     initial: { rotate: 30, scale: 1.8 },
     animate: { rotate: 0, scale: 1.8 },
     transition: {
-      duration: 2, // Adjust duration as needed
+      duration: 2, // Adjust duration
       onComplete: () => {
         console.log("Car animation complete");
         chevronAnimationControls.start("animate");
@@ -101,7 +100,7 @@ const SpecsScreen = () => {
       y: -80,
       x: -35, // Final position
       opacity: 1,
-      transition: { duration: 1 }, // Adjust duration as needed
+      transition: { duration: 1 }, // Adjust duration
     },
   };
 
