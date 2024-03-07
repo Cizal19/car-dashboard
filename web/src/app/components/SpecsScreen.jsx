@@ -24,10 +24,12 @@ const SpecsScreen = () => {
   const [currentMode, setCurrentMode] = useState("TOUR"); // Default to 'ECO+' or any other initial mode
   const [carSpecs, setCarSpecs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  // const [showAnimation, setShowAnimation] = useState(false);
 
   const modes = ["TOUR", "ECO+", "SPORT+"];
 
   const carControls = useAnimation();
+  const chevronAnimationControls = useAnimation();
 
   useEffect(() => {
     const fetchCarSpecifications = async () => {
@@ -49,7 +51,6 @@ const SpecsScreen = () => {
           }
         );
 
-        console.log;
         setCarSpecs(response.data[0]); // Assuming the API returns an array
       } catch (error) {
         console.error("Failed to fetch car specifications", error);
@@ -59,8 +60,6 @@ const SpecsScreen = () => {
     };
 
     fetchCarSpecifications();
-
-    chevronAnimationControls.start("animate");
   }, [currentMode]);
 
   const updateMode = (mode) => {
@@ -95,8 +94,6 @@ const SpecsScreen = () => {
       transition: { ease: "easeInOut", duration: 0.5 },
     },
   };
-
-  const chevronAnimationControls = useAnimation();
 
   const chevronAnimation = {
     initial: { y: 200, x: -35, opacity: 0 }, // Start below the car, adjust y value as needed
@@ -159,11 +156,20 @@ const SpecsScreen = () => {
             </div>
           </motion.div>
 
-          <div className="relative flex flex-col items-center">
+          <div className="relative flex flex-col items-center mb-20">
             <motion.div
+              key={currentMode}
               initial="initial"
-              animate={chevronAnimationControls}
-              variants={chevronAnimation}
+              animate="animate"
+              variants={{
+                initial: { y: 200, x: -35, opacity: 0 },
+                animate: {
+                  y: -80,
+                  x: -35,
+                  opacity: 1,
+                  transition: { duration: 1 },
+                },
+              }}
             >
               <Image
                 src={
@@ -177,6 +183,7 @@ const SpecsScreen = () => {
                 height={180}
               />
             </motion.div>
+            )
             <motion.div
               className="mr-16 z-0"
               initial="initial"
