@@ -98,7 +98,10 @@ const RangeScreen = () => {
               className="flex flex-row items-center p-10"
               style={{ width: "800px", height: "600px" }}
             >
-              {" "}
+              <div
+                className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full ml-20"
+                role="status"
+              ></div>{" "}
             </div>
           ) : (
             <motion.div
